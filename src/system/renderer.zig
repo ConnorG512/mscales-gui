@@ -1,4 +1,4 @@
-const Raylib = @import("cimport/raylib.zig").Raylib;
+const Raylib = @import("../cimport/raylib.zig").Raylib;
 
 pub const Renderer = struct {
     pub fn beginDraw() void {

@@ -1,5 +1,5 @@
 const std = @import("std");
-const Lua = @import("cimport/lua.zig").Lua;
+const Lua = @import("../cimport/lua.zig").Lua;
 
 const LuaError = error {
     CouldNotCreateState,

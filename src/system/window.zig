@@ -1,4 +1,4 @@
-const r = @import("cimport/raylib.zig").Raylib;
+const r = @import("../cimport/raylib.zig").Raylib;
 
 pub const Window = struct {
     pub fn initialiseWindow(width: c_int, height: c_int, title: [:0]const u8) void {

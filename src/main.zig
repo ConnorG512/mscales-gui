@@ -1,8 +1,8 @@
 const std = @import("std");
-const Window = @import("window.zig").Window;
+const Window = @import("system/window.zig").Window;
 const Raylib = @import("cimport/raylib.zig").Raylib;
-const Renderer = @import("renderer.zig").Renderer;
-const LuaState = @import("lua-instance.zig").LuaInstance;
+const Renderer = @import("system/renderer.zig").Renderer;
+const LuaState = @import("system/lua-instance.zig").LuaInstance;
 
 pub fn main() !void {
     var lua_instance: LuaState = .{};
