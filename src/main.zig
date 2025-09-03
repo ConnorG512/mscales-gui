@@ -13,10 +13,13 @@ pub fn main() !void {
     try lua_instance.openFile("scripts/config.lua");
     lua_instance.pCallK();
     _ = lua_instance.getGlobal("Width");
+    _ = lua_instance.getGlobal("Height");
 
-    const screen_width: c_int = @intFromFloat(lua_instance.toNumber(-1));
+    const screen_width: c_int = @intFromFloat(lua_instance.toNumber(-2));
+    const screen_height: c_int = @intFromFloat(lua_instance.toNumber(-1));
+    lua_instance.popFromStack(2);
 
-    Window.initWindow(screen_width, 1080, "Mscales GUI");
+    Window.initWindow(screen_width, screen_height, "Mscales GUI");
     defer Window.closeWindow();
 
     while (!Raylib.WindowShouldClose()) {
