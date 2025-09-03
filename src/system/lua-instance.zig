@@ -47,7 +47,7 @@ pub const LuaInstance = struct {
         std.log.debug("Result (pCallK): {d}.", .{ result });
     }
 
-    pub fn openFile(self: *LuaInstance, filename: [:0]const u8) !void {
+    pub fn openFile(self: *LuaInstance, filename: [:0]const u8) LuaError!void {
         const result: c_int = Lua.luaL_loadfilex(self.lua_state, filename.ptr, null); 
         if (result != Lua.LUA_OK) {
             std.log.debug("Lua load file result: {d}", .{ result });
