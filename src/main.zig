@@ -11,13 +11,17 @@ pub fn main() !void {
     defer lua_instance.closeLua();
 
     try lua_instance.openFile("scripts/config.lua");
+    lua_instance.pCallK();
+    _ = lua_instance.getGlobal("Width");
 
-    Window.initWindow(1920, 1080, "Mscales GUI");
+    const screen_width: c_int = @intFromFloat(lua_instance.toNumber(-1));
+
+    Window.initWindow(screen_width, 1080, "Mscales GUI");
     defer Window.closeWindow();
 
     while (!Raylib.WindowShouldClose()) {
         Renderer.beginDraw(); 
-        Renderer.clearBackground( ColorBackground.MiddleGrey ); 
+        Renderer.clearBackground( ColorBackground.Green); 
         Renderer.endDrawing();
     }
 }

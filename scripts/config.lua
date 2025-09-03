@@ -1,2 +1,3 @@
 -- Display 
-Resolution = { width = 1920, height = 1080 }
+Width = 600
+Height = 1080

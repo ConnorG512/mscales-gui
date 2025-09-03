@@ -29,12 +29,22 @@ pub const LuaInstance = struct {
         Lua.lua_getfield(self.lua_state, index, name);
     }
 
-    pub fn pushGlobal(self: *LuaInstance, global_name: [:0]const u8) void {
-        Lua.lua_getglobal(self.lua_state, global_name);
+    pub fn getGlobal(self: *LuaInstance, global_name: [:0]const u8) c_int {
+        const data_type = Lua.lua_getglobal(self.lua_state, global_name);
+        if (data_type == 0) {
+            std.log.err("Data type not found in (getGlobal) {d}.", .{ data_type });
+        }
+        std.log.debug("data_type result (getGlobal) {d}.", .{ data_type });
+        return data_type;
     }
 
     pub fn popFromStack(self: *LuaInstance, stack_elem: anytype) void {
         Lua.lua_pop(self.lua_state, stack_elem);
+    }
+
+    pub fn pCallK(self:*LuaInstance) void {
+        const result = Lua.lua_pcallk(self.lua_state, 0, 0, 0, 0, null);
+        std.log.debug("Result (pCallK): {d}.", .{ result });
     }
 
     pub fn openFile(self: *LuaInstance, filename: [:0]const u8) !void {
@@ -43,6 +53,13 @@ pub const LuaInstance = struct {
             std.log.debug("Lua load file result: {d}", .{ result });
             return error.FailedToOpenLuaFile;
         }
+    }
+
+    pub fn toNumber(self: *LuaInstance, stack_pos: c_int) Lua.lua_Number {
+        var result: c_int = 0;
+        const lua_number = Lua.lua_tonumberx(self.lua_state, stack_pos, &result);
+        std.log.debug("Lua load file result (toNumber): {d}", .{ result });
+        return lua_number;
     }
 
     pub fn closeLua(self: *LuaInstance) void {
