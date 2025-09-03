@@ -3,6 +3,7 @@ const Window = @import("system/window.zig").Window;
 const Raylib = @import("cimport/raylib.zig").Raylib;
 const Renderer = @import("system/renderer.zig").Renderer;
 const LuaState = @import("system/lua-instance.zig").LuaInstance;
+const ColorBackground = @import("theming/background_colors.zig");
 
 pub fn main() !void {
     var lua_instance: LuaState = .{};
@@ -14,7 +15,7 @@ pub fn main() !void {
 
     while (!Raylib.WindowShouldClose()) {
         Renderer.beginDraw(); 
-        Renderer.clearBackground( .{ .r = 20, .b = 40, .g = 60, .a = 255 }); 
+        Renderer.clearBackground( ColorBackground.Green ); 
         Renderer.endDrawing();
     }
 }
