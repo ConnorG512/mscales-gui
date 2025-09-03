@@ -20,7 +20,7 @@ pub const LuaInstance = struct {
 
     fn openLibs(self: *LuaInstance) void {
         Lua.luaL_openlibs(self.lua_state);
-        std.log.debug("Lua libs open!", .{});
+        std.log.debug("Lua libs opened!", .{});
     }
 
 };
