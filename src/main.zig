@@ -15,7 +15,7 @@ pub fn main() !void {
 
     while (!Raylib.WindowShouldClose()) {
         Renderer.beginDraw(); 
-        Renderer.clearBackground( ColorBackground.Green ); 
+        Renderer.clearBackground( ColorBackground.MiddleGrey ); 
         Renderer.endDrawing();
     }
 }

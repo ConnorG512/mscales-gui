@@ -1,5 +1,26 @@
 const Raylib = @import("../cimport/raylib.zig").Raylib;
 
+pub const White = Raylib.Color {
+   .a = 255,
+   .r = 255,
+   .g = 255,
+   .b = 255,
+};
+
+pub const Black = Raylib.Color {
+   .a = 255,
+   .r = 0,
+   .g = 0,
+   .b = 0,
+};
+
+pub const MiddleGrey = Raylib.Color {
+    .a = 255,
+    .r = 255 / 2,
+    .g = 255 / 2,
+    .b = 255 / 2,
+};
+
 pub const Green = Raylib.Color {
    .a = 255,
    .r = 20,
@@ -7,9 +28,4 @@ pub const Green = Raylib.Color {
    .b = 40,
 };
 
-pub const White = Raylib.Color {
-   .a = 255,
-   .r = 255,
-   .g = 255,
-   .b = 255,
-};
+
