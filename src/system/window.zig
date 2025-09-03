@@ -3,8 +3,8 @@ const r = @import("../cimport/raylib.zig").Raylib;
 pub const Window = struct {
 
     pub fn initWindow (width: c_int, height: c_int, title: [:0]const u8) void {
-        createWindow(width, height, title);
         allowResize();
+        createWindow(width, height, title);
         setTargetFramerate(60);
     }
     fn createWindow(width: c_int, height: c_int, title: [:0]const u8) void {
