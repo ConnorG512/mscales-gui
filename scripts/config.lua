@@ -1,3 +1,3 @@
 -- Display 
-Width = 640
-Height = 360
+Width = 1920
+Height = 1080
