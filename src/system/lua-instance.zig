@@ -4,7 +4,7 @@ const Lua = @import("../cimport/lua.zig").Lua;
 const LuaError = error {
     CouldNotCreateState,
     CouldNotOpenLuaFile,
-    dofileFailedToOpen,
+    FailedToOpenLuaFile,
 };
 
 pub const LuaInstance = struct {
@@ -38,8 +38,11 @@ pub const LuaInstance = struct {
     }
 
     pub fn openFile(self: *LuaInstance, filename: [:0]const u8) !void {
-        Lua.luaL_loadfile(self.lua_state, @as([*c]const u8, @ptrCast(filename.ptr)));
-
+        const result: c_int = Lua.luaL_loadfilex(self.lua_state, filename.ptr, null); 
+        if (result != Lua.LUA_OK) {
+            std.log.debug("Lua load file result: {d}", .{ result });
+            return error.FailedToOpenLuaFile;
+        }
     }
 
     pub fn closeLua(self: *LuaInstance) void {

@@ -10,6 +10,8 @@ pub fn main() !void {
     try lua_instance.initLua();
     defer lua_instance.closeLua();
 
+    try lua_instance.openFile("scripts/config.lua");
+
     Window.initWindow(1920, 1080, "Mscales GUI");
     defer Window.closeWindow();
 
