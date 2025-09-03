@@ -9,9 +9,8 @@ pub fn main() !void {
     var lua_instance: LuaState = .{};
     try lua_instance.initLua();
 
-    Window.initialiseWindow(1920, 1080, "Mscales GUI");
+    Window.initWindow(1920, 1080, "Mscales GUI");
     defer Window.closeWindow();
-    Window.setTargetFramerate(60);
 
     while (!Raylib.WindowShouldClose()) {
         Renderer.beginDraw(); 
