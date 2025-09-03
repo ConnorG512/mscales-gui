@@ -3,6 +3,8 @@ const Lua = @import("../cimport/lua.zig").Lua;
 
 const LuaError = error {
     CouldNotCreateState,
+    CouldNotOpenLuaFile,
+    dofileFailedToOpen,
 };
 
 pub const LuaInstance = struct {
@@ -23,4 +25,24 @@ pub const LuaInstance = struct {
         std.log.debug("Lua libs opened!", .{});
     }
 
+    pub fn getField(self: *LuaInstance, index: c_int, name: [:0]const u8) void {
+        Lua.lua_getfield(self.lua_state, index, name);
+    }
+
+    pub fn pushGlobal(self: *LuaInstance, global_name: [:0]const u8) void {
+        Lua.lua_getglobal(self.lua_state, global_name);
+    }
+
+    pub fn popFromStack(self: *LuaInstance, stack_elem: anytype) void {
+        Lua.lua_pop(self.lua_state, stack_elem);
+    }
+
+    pub fn openFile(self: *LuaInstance, filename: [:0]const u8) !void {
+        Lua.luaL_loadfile(self.lua_state, @as([*c]const u8, @ptrCast(filename.ptr)));
+
+    }
+
+    pub fn closeLua(self: *LuaInstance) void {
+        Lua.lua_close(self.lua_state);
+    }
 };
