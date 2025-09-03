@@ -8,6 +8,7 @@ const ColorBackground = @import("theming/background_colors.zig");
 pub fn main() !void {
     var lua_instance: LuaState = .{};
     try lua_instance.initLua();
+    defer lua_instance.closeLua();
 
     Window.initWindow(1920, 1080, "Mscales GUI");
     defer Window.closeWindow();
