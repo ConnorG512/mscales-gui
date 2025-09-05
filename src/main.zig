@@ -5,6 +5,7 @@ const Renderer = @import("system/renderer.zig").Renderer;
 const LuaState = @import("system/lua-instance.zig").LuaInstance;
 const Color = @import("theming/colors.zig");
 const TextRender = @import("system/text-rendering.zig");
+const Audio = @import("system/audio.zig").Audio;
 
 const MusicScale = @import("music-scales.zig");
 
@@ -29,10 +30,21 @@ pub fn main() !void {
         @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "BackgroundB")), 
     );
 
+    Audio.init();
+    var application_audio = Audio {
+        .sample_rate = @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "SampleRate")),
+        .sample_size = @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "SampleSize")),
+        .channels = @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "Channels")),
+    };
+    const audio_stream = application_audio.loadAudioStream();
+
     while (!Raylib.WindowShouldClose()) {
+        Raylib.PlayAudioStream(audio_stream);
+
         Renderer.beginDraw(); 
         Renderer.clearBackground(background_color); 
         TextRender.TextRendering.drawTextToFixedPosition(MusicScale.CMajor.title, 32, 32, TextRender.ScreenPositions.TopCentre, Color.MiddleGrey);
+        TextRender.TextRendering.drawTextToFixedPosition(MusicScale.CMajor.scale_type, 16, 64, TextRender.ScreenPositions.TopCentre, Color.MiddleGrey);
         Renderer.endDrawing();
     }
 }
