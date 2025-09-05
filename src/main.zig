@@ -7,7 +7,7 @@ const Color = @import("theming/colors.zig");
 const TextRender = @import("system/text-rendering.zig");
 const Audio = @import("system/audio.zig").Audio;
 
-const MusicScale = @import("music-scales.zig");
+const MusicScale = @import("application/music-scales.zig");
 
 const Vec2 = @import("util/vector2.zig");
 
