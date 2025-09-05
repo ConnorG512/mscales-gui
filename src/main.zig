@@ -18,7 +18,8 @@ pub fn main() !void {
 
     while (!Raylib.WindowShouldClose()) {
         Renderer.beginDraw(); 
-        Renderer.clearBackground( ColorBackground.Green); 
+        Renderer.clearBackground(ColorBackground.DarkGrey); 
+        Raylib.DrawText("Hello", 800, 600, 32, ColorBackground.MiddleGrey);
         Renderer.endDrawing();
     }
 }
