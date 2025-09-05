@@ -3,6 +3,6 @@ Width = 1920
 Height = 1080
 
 -- Background Colors
-BackgroundR = 128
+BackgroundR = 50
 BackgroundG = 50
-BackgroundB = 255
+BackgroundB = 50
