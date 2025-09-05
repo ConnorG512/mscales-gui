@@ -12,11 +12,6 @@ pub const ScreenPositions = enum {
     BottomRight,
 };
 
-const Dimensions = struct {
-    width: c_int = undefined,
-    height: c_int = undefined,
-};
-
 pub const TextRendering = struct {
     pub fn drawTextToFixedPosition(
         text: [:0]const u8, 
