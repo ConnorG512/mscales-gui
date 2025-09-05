@@ -1,6 +1,8 @@
 const std = @import("std");
 const Raylib = @import("../cimport/raylib.zig").Raylib;
 
+const Vector2 = @import("../util/vector2.zig");
+
 pub const ScreenPositions = enum {
     TopCentre,
     BottomCentre,
@@ -23,34 +25,34 @@ pub const TextRendering = struct {
         position: ScreenPositions, 
         color: Raylib.Color) void {
 
-        var screen_dimensions: Dimensions = .{};
+        var screen_dimensions: Vector2.vectorTwo(c_int) = .{ .x = 0, .y = 0 }; 
         
         switch (position) {
             .BottomCentre => {
-                screen_dimensions.width = @divExact(Raylib.GetScreenWidth(), 2) - @divExact(Raylib.MeasureText(text, size), 2); 
-                screen_dimensions.height = Raylib.GetScreenHeight() - screen_offset;
+                screen_dimensions.x = @divExact(Raylib.GetScreenWidth(), 2) - @divExact(Raylib.MeasureText(text, size), 2); 
+                screen_dimensions.y = Raylib.GetScreenHeight() - screen_offset;
             },
             .TopCentre => {
-                screen_dimensions.width = @divExact(Raylib.GetScreenWidth(), 2) - @divExact(Raylib.MeasureText(text, size), 2);  
-                screen_dimensions.height = 0 + screen_offset;
+                screen_dimensions.x = @divExact(Raylib.GetScreenWidth(), 2) - @divExact(Raylib.MeasureText(text, size), 2);  
+                screen_dimensions.y = 0 + screen_offset;
             },
             .BottomLeft => {
-                screen_dimensions.width = 0 + screen_offset;
-                screen_dimensions.height = Raylib.GetScreenHeight() - screen_offset;
+                screen_dimensions.x = 0 + screen_offset;
+                screen_dimensions.y = Raylib.GetScreenHeight() - screen_offset;
             },
             .BottomRight => {
-                screen_dimensions.width = Raylib.GetScreenWidth() - (Raylib.MeasureText(text, size) + screen_offset);
-                screen_dimensions.height = Raylib.GetScreenHeight() - screen_offset;
+                screen_dimensions.x = Raylib.GetScreenWidth() - (Raylib.MeasureText(text, size) + screen_offset);
+                screen_dimensions.y = Raylib.GetScreenHeight() - screen_offset;
             },
             .TopLeft => {
-                screen_dimensions.width = 0 + screen_offset;
-                screen_dimensions.height = 0 + screen_offset;
+                screen_dimensions.x = 0 + screen_offset;
+                screen_dimensions.y = 0 + screen_offset;
             },
             .TopRight => {
-                screen_dimensions.width = Raylib.GetScreenWidth() - (Raylib.MeasureText(text, size) + screen_offset);
-                screen_dimensions.height = screen_offset;
+                screen_dimensions.x = Raylib.GetScreenWidth() - (Raylib.MeasureText(text, size) + screen_offset);
+                screen_dimensions.y = screen_offset;
             },
         }
-        Raylib.DrawText(text, screen_dimensions.width, screen_dimensions.height, size, color);
+        Raylib.DrawText(text, screen_dimensions.x, screen_dimensions.y, size, color);
     }
 };
