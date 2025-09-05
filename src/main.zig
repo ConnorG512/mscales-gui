@@ -10,10 +10,12 @@ pub fn main() !void {
     try lua_instance.initLua();
     defer lua_instance.closeLua();
 
-    const screen_width: c_int = @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "Width"));
-    const screen_height: c_int = @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "Height"));
+    const screen_resolution: [2]c_int = .{
+        @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "Width")),
+        @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "Height")),
+    };
 
-    Window.initWindow(screen_width, screen_height, "Mscales GUI");
+    Window.initWindow(screen_resolution[0], screen_resolution[1], "Mscales GUI");
     defer Window.closeWindow();
 
     while (!Raylib.WindowShouldClose()) {
