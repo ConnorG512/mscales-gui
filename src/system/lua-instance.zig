@@ -3,7 +3,6 @@ const Lua = @import("../cimport/lua.zig").Lua;
 
 const LuaError = error {
     CouldNotCreateState,
-    CouldNotOpenLuaFile,
     FailedToOpenLuaFile,
 };
 
