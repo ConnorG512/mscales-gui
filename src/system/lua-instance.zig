@@ -25,7 +25,7 @@ pub const LuaInstance = struct {
         std.log.debug("Lua libs opened!", .{});
     }
 
-    pub fn readGlobalFromFile(self: *LuaInstance, file_path: [:0]const u8, target: [:0]const u8) LuaError!Lua.lua_Number {
+    pub fn readGlobalFromFile(self: *LuaInstance, file_path: [:0]const u8, target: [:0]const u8) LuaError!f64 {
         try openFile(self, file_path);
         pCallK(self);
         _ = getGlobal(self, target);
