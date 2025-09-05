@@ -21,11 +21,10 @@ pub const MiddleGrey = Raylib.Color {
     .b = 255 / 2,
 };
 
-pub const Green = Raylib.Color {
-   .a = 255,
-   .r = 20,
-   .g = 60,
-   .b = 40,
+pub const DarkGrey = Raylib.Color {
+    .a = 255,
+    .r = 255 / 4,
+    .g = 255 / 4,
+    .b = 255 / 4,
 };
-
 
