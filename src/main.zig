@@ -3,7 +3,7 @@ const Window = @import("system/window.zig").Window;
 const Raylib = @import("cimport/raylib.zig").Raylib;
 const Renderer = @import("system/renderer.zig").Renderer;
 const LuaState = @import("system/lua-instance.zig").LuaInstance;
-const ColorBackground = @import("theming/colors.zig");
+const Color = @import("theming/colors.zig");
 const TextRender = @import("system/text_rendering.zig");
 
 pub fn main() !void {
@@ -21,8 +21,8 @@ pub fn main() !void {
 
     while (!Raylib.WindowShouldClose()) {
         Renderer.beginDraw(); 
-        Renderer.clearBackground(ColorBackground.DarkGrey); 
-        TextRender.TextRendering.drawTextToFixedPosition("PLACEHOLDER", 32, 100, TextRender.ScreenPositions.TopCentre, ColorBackground.MiddleGrey);
+        Renderer.clearBackground(Color.DarkGrey); 
+        TextRender.TextRendering.drawTextToFixedPosition("PLACEHOLDER", 32, 100, TextRender.ScreenPositions.TopCentre, Color.MiddleGrey);
         Renderer.endDrawing();
     }
 }
