@@ -28,3 +28,7 @@ pub const DarkGrey = Raylib.Color {
     .b = 255 / 4,
 };
 
+pub fn createCustomColor(r: u8, g: u8, b: u8) Raylib.Color {
+    return .{ .a = 255, .r = r, .g = g, .b = b };
+}
+

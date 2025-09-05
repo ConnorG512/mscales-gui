@@ -21,9 +21,15 @@ pub fn main() !void {
     Window.initWindow(screen_resolution.x, screen_resolution.y, "Mscales GUI");
     defer Window.closeWindow();
 
+    const background_color: Raylib.Color = Color.createCustomColor(
+        @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "BackgroundR")), 
+        @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "BackgroundG")), 
+        @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "BackgroundB")), 
+    );
+
     while (!Raylib.WindowShouldClose()) {
         Renderer.beginDraw(); 
-        Renderer.clearBackground(Color.DarkGrey); 
+        Renderer.clearBackground(background_color); 
         TextRender.TextRendering.drawTextToFixedPosition("PLACEHOLDER", 32, 32, TextRender.ScreenPositions.TopCentre, Color.MiddleGrey);
         Renderer.endDrawing();
     }
