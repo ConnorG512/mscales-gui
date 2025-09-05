@@ -4,7 +4,7 @@ const Raylib = @import("cimport/raylib.zig").Raylib;
 const Renderer = @import("system/renderer.zig").Renderer;
 const LuaState = @import("system/lua-instance.zig").LuaInstance;
 const Color = @import("theming/colors.zig");
-const TextRender = @import("system/text_rendering.zig");
+const TextRender = @import("system/text-rendering.zig");
 
 const Vec2 = @import("util/vector2.zig");
 
