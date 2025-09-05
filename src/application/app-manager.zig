@@ -5,6 +5,7 @@ const LuaState = @import("../system/lua-instance.zig").LuaInstance;
 const Color = @import("../theming/colors.zig");
 const TextRender = @import("../system/text-rendering.zig");
 const Audio = @import("../system/audio.zig").Audio;
+const MusicScale = @import("music-scales.zig");
 
 pub const AppManager = struct {
     lua_instance: LuaState = undefined,
@@ -44,6 +45,12 @@ pub const AppManager = struct {
     pub fn updateApp(self: *AppManager) void {
         Renderer.beginDraw();
         Renderer.clearBackground(self.background_color);
+        TextRender.TextRendering.drawTextToFixedPosition(
+            MusicScale.CMajor.title, 
+            32, 16, 
+            .TopCentre, 
+            Color.MiddleGrey );
+
         Renderer.endDrawing();
     }
     
