@@ -6,6 +6,8 @@ const LuaState = @import("system/lua-instance.zig").LuaInstance;
 const Color = @import("theming/colors.zig");
 const TextRender = @import("system/text-rendering.zig");
 
+const MusicScale = @import("music-scales.zig");
+
 const Vec2 = @import("util/vector2.zig");
 
 pub fn main() !void {
@@ -30,7 +32,7 @@ pub fn main() !void {
     while (!Raylib.WindowShouldClose()) {
         Renderer.beginDraw(); 
         Renderer.clearBackground(background_color); 
-        TextRender.TextRendering.drawTextToFixedPosition("PLACEHOLDER", 32, 32, TextRender.ScreenPositions.TopCentre, Color.MiddleGrey);
+        TextRender.TextRendering.drawTextToFixedPosition(MusicScale.CMajor.title, 32, 32, TextRender.ScreenPositions.TopCentre, Color.MiddleGrey);
         Renderer.endDrawing();
     }
 }
