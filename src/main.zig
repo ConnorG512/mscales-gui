@@ -4,6 +4,7 @@ const Raylib = @import("cimport/raylib.zig").Raylib;
 const Renderer = @import("system/renderer.zig").Renderer;
 const LuaState = @import("system/lua-instance.zig").LuaInstance;
 const ColorBackground = @import("theming/background_colors.zig");
+const TextRender = @import("system/text_rendering.zig");
 
 pub fn main() !void {
     var lua_instance: LuaState = .{};
@@ -21,7 +22,7 @@ pub fn main() !void {
     while (!Raylib.WindowShouldClose()) {
         Renderer.beginDraw(); 
         Renderer.clearBackground(ColorBackground.DarkGrey); 
-        Raylib.DrawText("Hello", 800, 600, 32, ColorBackground.MiddleGrey);
+        TextRender.TextRendering.drawTextToFixedPosition("PLACEHOLDER", 32, TextRender.ScreenPositions.TopCentre, ColorBackground.MiddleGrey);
         Renderer.endDrawing();
     }
 }
