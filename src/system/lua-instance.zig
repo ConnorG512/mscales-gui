@@ -38,7 +38,7 @@ pub const LuaInstance = struct {
         return data_type;
     }
 
-    pub fn popFromStack(self: *LuaInstance, stack_elem: anytype) void {
+    pub fn popFromStack(self: *LuaInstance, stack_elem: c_int) void {
         Lua.lua_pop(self.lua_state, stack_elem);
     }
 
