@@ -34,7 +34,7 @@ pub const LuaInstance = struct {
         return value_from_file;
     } 
 
-    pub fn getField(self: *LuaInstance, index: c_int, name: [:0]const u8) void {
+    fn getField(self: *LuaInstance, index: c_int, name: [:0]const u8) void {
         Lua.lua_getfield(self.lua_state, index, name);
     }
 
