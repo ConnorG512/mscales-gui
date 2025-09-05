@@ -10,14 +10,8 @@ pub fn main() !void {
     try lua_instance.initLua();
     defer lua_instance.closeLua();
 
-    try lua_instance.openFile("scripts/config.lua");
-    lua_instance.pCallK();
-    _ = lua_instance.getGlobal("Width");
-    _ = lua_instance.getGlobal("Height");
-
-    const screen_width: c_int = @intFromFloat(lua_instance.toNumber(-2));
-    const screen_height: c_int = @intFromFloat(lua_instance.toNumber(-1));
-    lua_instance.popFromStack(2);
+    const screen_width: c_int = @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "Width"));
+    const screen_height: c_int = @intFromFloat(try lua_instance.readGlobalFromFile("scripts/config.lua", "Height"));
 
     Window.initWindow(screen_width, screen_height, "Mscales GUI");
     defer Window.closeWindow();

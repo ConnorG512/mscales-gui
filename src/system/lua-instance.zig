@@ -25,11 +25,21 @@ pub const LuaInstance = struct {
         std.log.debug("Lua libs opened!", .{});
     }
 
+    pub fn readGlobalFromFile(self: *LuaInstance, file_path: [:0]const u8, target: [:0]const u8) LuaError!Lua.lua_Number {
+        try openFile(self, file_path);
+        pCallK(self);
+        _ = getGlobal(self, target);
+
+        const value_from_file = toNumber(self, -1);
+        popFromStack(self, 1);
+        return value_from_file;
+    } 
+
     pub fn getField(self: *LuaInstance, index: c_int, name: [:0]const u8) void {
         Lua.lua_getfield(self.lua_state, index, name);
     }
 
-    pub fn getGlobal(self: *LuaInstance, global_name: [:0]const u8) c_int {
+    fn getGlobal(self: *LuaInstance, global_name: [:0]const u8) c_int {
         const data_type = Lua.lua_getglobal(self.lua_state, global_name);
         if (data_type == 0) {
             std.log.err("Data type not found in (getGlobal) {d}.", .{ data_type });
@@ -38,16 +48,16 @@ pub const LuaInstance = struct {
         return data_type;
     }
 
-    pub fn popFromStack(self: *LuaInstance, stack_elem: c_int) void {
+    fn popFromStack(self: *LuaInstance, stack_elem: c_int) void {
         Lua.lua_pop(self.lua_state, stack_elem);
     }
 
-    pub fn pCallK(self:*LuaInstance) void {
+    fn pCallK(self:*LuaInstance) void {
         const result = Lua.lua_pcallk(self.lua_state, 0, 0, 0, 0, null);
         std.log.debug("Result (pCallK): {d}.", .{ result });
     }
 
-    pub fn openFile(self: *LuaInstance, filename: [:0]const u8) LuaError!void {
+    fn openFile(self: *LuaInstance, filename: [:0]const u8) LuaError!void {
         const result: c_int = Lua.luaL_loadfilex(self.lua_state, filename.ptr, null); 
         if (result != Lua.LUA_OK) {
             std.log.debug("Lua load file result: {d}", .{ result });
@@ -55,7 +65,7 @@ pub const LuaInstance = struct {
         }
     }
 
-    pub fn toNumber(self: *LuaInstance, stack_pos: c_int) Lua.lua_Number {
+    fn toNumber(self: *LuaInstance, stack_pos: c_int) Lua.lua_Number {
         var result: c_int = 0;
         const lua_number = Lua.lua_tonumberx(self.lua_state, stack_pos, &result);
         std.log.debug("Lua load file result (toNumber): {d}", .{ result });
