@@ -3,7 +3,7 @@ const Window = @import("system/window.zig").Window;
 const Raylib = @import("cimport/raylib.zig").Raylib;
 const Renderer = @import("system/renderer.zig").Renderer;
 const LuaState = @import("system/lua-instance.zig").LuaInstance;
-const ColorBackground = @import("theming/background_colors.zig");
+const ColorBackground = @import("theming/colors.zig");
 const TextRender = @import("system/text_rendering.zig");
 
 pub fn main() !void {
