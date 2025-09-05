@@ -24,11 +24,11 @@ pub const TextRendering = struct {
         
         switch (position) {
             .BottomCentre => {
-                screen_dimensions.x = @divExact(Raylib.GetScreenWidth(), 2) - @divExact(Raylib.MeasureText(text, size), 2); 
+                screen_dimensions.x = @divFloor(Raylib.GetScreenWidth(), 2) - @divFloor(Raylib.MeasureText(text, size), 2); 
                 screen_dimensions.y = Raylib.GetScreenHeight() - screen_offset;
             },
             .TopCentre => {
-                screen_dimensions.x = @divExact(Raylib.GetScreenWidth(), 2) - @divExact(Raylib.MeasureText(text, size), 2);  
+                screen_dimensions.x = @divFloor(Raylib.GetScreenWidth(), 2) - @divFloor(Raylib.MeasureText(text, size), 2);  
                 screen_dimensions.y = 0 + screen_offset;
             },
             .BottomLeft => {
@@ -48,6 +48,6 @@ pub const TextRendering = struct {
                 screen_dimensions.y = screen_offset;
             },
         }
-        Raylib.DrawText(text, screen_dimensions.x, screen_dimensions.y, size, color);
+        Raylib.DrawText(text.ptr, screen_dimensions.x, screen_dimensions.y, size, color);
     }
 };
