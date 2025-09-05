@@ -29,8 +29,10 @@ pub const LuaInstance = struct {
         pCallK(self);
         _ = getGlobal(self, target);
 
-        const value_from_file = toNumber(self, -1);
-        popFromStack(self, 1);
+        const stack_pos = comptime 1;
+        const value_from_file = toNumber(self, -stack_pos);
+        popFromStack(self, stack_pos);
+
         return value_from_file;
     } 
 
