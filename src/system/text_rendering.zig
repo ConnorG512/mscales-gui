@@ -19,10 +19,9 @@ pub const TextRendering = struct {
     pub fn drawTextToFixedPosition(
         text: [:0]const u8, 
         size: c_int, 
+        screen_offset: c_int,
         position: ScreenPositions, 
         color: Raylib.Color) void {
-
-        const screen_offset = comptime 100;
 
         var screen_dimensions: Dimensions = .{};
         
