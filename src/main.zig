@@ -24,7 +24,7 @@ pub fn main() !void {
     while (!Raylib.WindowShouldClose()) {
         Renderer.beginDraw(); 
         Renderer.clearBackground(Color.DarkGrey); 
-        TextRender.TextRendering.drawTextToFixedPosition("PLACEHOLDER", 32, 100, TextRender.ScreenPositions.TopCentre, Color.MiddleGrey);
+        TextRender.TextRendering.drawTextToFixedPosition("PLACEHOLDER", 32, 32, TextRender.ScreenPositions.TopCentre, Color.MiddleGrey);
         Renderer.endDrawing();
     }
 }
