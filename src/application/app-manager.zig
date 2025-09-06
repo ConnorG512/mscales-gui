@@ -15,15 +15,9 @@ pub const AppManager = struct {
 
     pub fn initApp(self: *AppManager) !void {
         try self.lua_instance.initLua();
-
-        Window.initWindow(
-            @intFromFloat(try self.lua_instance.readGlobalFromFile("scripts/config.lua", "Width")), 
-            @intFromFloat(try self.lua_instance.readGlobalFromFile("scripts/config.lua", "Height")), 
-            "Mscales GUI");
-
-        try self.audio_manager.initAudioFromLuaFile(&self.lua_instance);
+        try self.window.initWindowFromLuaFile(&self.lua_instance);
         try self.renderer.initBackgroundFromLuaFile(&self.lua_instance);
-
+        try self.audio_manager.initAudioFromLuaFile(&self.lua_instance);
     }
     
     pub fn updateApp(self: *AppManager) void {
