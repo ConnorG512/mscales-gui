@@ -11,8 +11,8 @@ pub const AppManager = struct {
     lua_instance: LuaState = undefined,
     audio_manager: Audio = undefined,
     window: Window = undefined,
-    background_color: Raylib.Color = undefined,
-    
+    renderer: Renderer = undefined,
+
     pub fn initApp(self: *AppManager) !void {
         try self.lua_instance.initLua();
 
@@ -32,26 +32,21 @@ pub const AppManager = struct {
                 "scripts/config.lua", 
                 "Channels"));
 
-        self.background_color = .{ 
-            .a = 255,
-            .r = @intFromFloat(try self.lua_instance.readGlobalFromFile("scripts/config.lua", "BackgroundR")),
-            .g = @intFromFloat(try self.lua_instance.readGlobalFromFile("scripts/config.lua", "BackgroundG")),
-            .b = @intFromFloat(try self.lua_instance.readGlobalFromFile("scripts/config.lua", "BackgroundB")),
-        };
-
+        try self.renderer.initBackgroundFromLuaFile(&self.lua_instance);
 
     }
     
     pub fn updateApp(self: *AppManager) void {
+        
         Renderer.beginDraw();
-        Renderer.clearBackground(self.background_color);
+        self.renderer.clearBackground();
         TextRender.TextRendering.drawTextToFixedPosition(
             MusicScale.CMajor.title, 
             32, 16, 
             .TopCentre, 
             Color.MiddleGrey );
 
-        Renderer.endDrawing();
+        Renderer.endDrawing(); 
     }
     
     pub fn cleanupApp(self: *AppManager) void {
