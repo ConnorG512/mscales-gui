@@ -21,17 +21,7 @@ pub const AppManager = struct {
             @intFromFloat(try self.lua_instance.readGlobalFromFile("scripts/config.lua", "Height")), 
             "Mscales GUI");
 
-        Audio.init();
-        self.audio_manager.sample_rate = @intFromFloat(try self.lua_instance.readGlobalFromFile(
-                "scripts/config.lua", 
-                "SampleRate"));
-        self.audio_manager.sample_size = @intFromFloat(try self.lua_instance.readGlobalFromFile(
-                "scripts/config.lua", 
-                "SampleSize"));
-        self.audio_manager.channels = @intFromFloat(try self.lua_instance.readGlobalFromFile(
-                "scripts/config.lua", 
-                "Channels"));
-
+        try self.audio_manager.initAudioFromLuaFile(&self.lua_instance);
         try self.renderer.initBackgroundFromLuaFile(&self.lua_instance);
 
     }
