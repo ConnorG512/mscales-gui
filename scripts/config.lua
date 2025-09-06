@@ -1,6 +1,7 @@
 -- Display 
 Width = 1920
 Height = 1080
+TargetFramerate = 60
 
 -- Background Colors
 BackgroundR = 50
