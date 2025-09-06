@@ -6,6 +6,8 @@ const Color = @import("../theming/colors.zig");
 const TextRender = @import("../system/text-rendering.zig");
 const Audio = @import("../system/audio.zig").Audio;
 const MusicScale = @import("music-scales.zig");
+const UserInput = @import("../system/user-input.zig").UserInput;
+const std = @import("std");
 
 pub const AppManager = struct {
     lua_instance: LuaState = undefined,
@@ -21,6 +23,9 @@ pub const AppManager = struct {
     }
     
     pub fn updateApp(self: *AppManager) void {
+        if (UserInput.checkForHeldInput()) {
+            std.log.debug("Space Held!", .{});
+        }
         
         Renderer.beginDraw();
         self.renderer.clearBackground();
