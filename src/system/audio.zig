@@ -15,6 +15,10 @@ pub const Audio = struct {
         self.loadAudioStream();
     } 
 
+    pub fn closeAudio() void {
+        Raylib.CloseAudioDevice();
+    }
+
     fn loadAudioStream(self: *Audio) void {
         self.audio_stream = Raylib.LoadAudioStream(self.sample_rate, self.sample_size, self.channels);
         std.log.debug("Audio stream:\n\tSample Rate:{d}\n\tSample Size:{d}\n\tChannels:{d}.", .{

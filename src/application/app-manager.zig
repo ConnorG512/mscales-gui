@@ -34,6 +34,7 @@ pub const AppManager = struct {
     }
     
     pub fn cleanupApp(self: *AppManager) void {
+        Audio.closeAudio();
         self.lua_instance.closeLua();
         Window.closeWindow();
     }
