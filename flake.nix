@@ -18,11 +18,19 @@
       git
       xorg.libX11
       libGL
+
+      alsa-lib
+      libxkbcommon
+      wayland
     ];
 
     LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath (with pkgs; [
       xorg.libX11
       libGL
+
+      alsa-lib
+      libxkbcommon
+      wayland
     ]);
 
     shellHook = ''
