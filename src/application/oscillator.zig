@@ -17,7 +17,7 @@ pub const SoundStatus = enum {
     NoSound,
     SineWave,
 };
-pub var current_sound_status: SoundStatus = .NoSound;
+var current_sound_status: SoundStatus = .NoSound;
 
 pub fn initFromLuaFile(lua_instance: *LuaState) !void {
     sample_rate = @floatCast(try lua_instance.readGlobalFromFile(
@@ -26,6 +26,11 @@ pub fn initFromLuaFile(lua_instance: *LuaState) !void {
     base_amplitude = @floatCast(try lua_instance.readGlobalFromFile(
         "scripts/config.lua", 
         "BaseAmplitude"));
+}
+
+pub fn setupPlayAudio(chosen_sound_status: SoundStatus, chosen_frequency: f32) void {
+    audioFrequency = chosen_frequency;
+    current_sound_status = chosen_sound_status;
 }
 
 pub fn writeDataToSoundBuffer(raw_buffer: ?*anyopaque, frames: c_uint) callconv(.c) void {
@@ -42,7 +47,6 @@ pub fn writeDataToSoundBuffer(raw_buffer: ?*anyopaque, frames: c_uint) callconv(
 }
 
 fn playSine (sound_buffer: []i16) void {
-    // audioFrequency = frequency + (audioFrequency - frequency ) * 0.95;
     const incr = audioFrequency / sample_rate;
 
     for (sound_buffer[0..]) |*sample| {

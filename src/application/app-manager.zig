@@ -27,7 +27,7 @@ pub const AppManager = struct {
     
     pub fn updateApp(self: *AppManager) void {
 
-        UserInput.triggerSound(Raylib.KEY_SPACE);
+        UserInput.triggerSoundOnInput();
 
         Renderer.beginDraw();
         self.renderer.clearBackground();
