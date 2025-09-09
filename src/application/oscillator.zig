@@ -7,7 +7,7 @@ const std = @import("std");
 var phase: f32 = 0.0;
 
 const frequency: f32 = 440.0;
-var audioFrequency: f32 = 440.0;
+var audioFrequency: f32 = 220.0;
 const old_frequency: f32 = 1.0;
 var sineIdx: f32 = 0.0;
 var sample_rate: f32 = 44100;
@@ -42,7 +42,7 @@ pub fn writeDataToSoundBuffer(raw_buffer: ?*anyopaque, frames: c_uint) callconv(
 }
 
 fn playSine (sound_buffer: []i16) void {
-    audioFrequency = frequency + (audioFrequency - frequency ) * 0.95;
+    // audioFrequency = frequency + (audioFrequency - frequency ) * 0.95;
     const incr = audioFrequency / sample_rate;
 
     for (sound_buffer[0..]) |*sample| {
