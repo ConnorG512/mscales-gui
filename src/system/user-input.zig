@@ -8,7 +8,12 @@ pub fn triggerSoundOnInput() void {
     for (NoteFrequencies.OctaveFour) |note| {
         if (Raylib.IsKeyDown(note.input_button)) {
             Oscilator.setupPlayAudio(.SineWave, note.frequency);
+            return;
         }
+        Oscilator.setupPlayAudio(.NoSound, 440);
     }
+}
+
+pub fn changeOctave() void {
 }
 
