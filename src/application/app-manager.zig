@@ -36,6 +36,11 @@ pub const AppManager = struct {
             32, 16, 
             .TopCentre, 
             Color.MiddleGrey );
+        TextRender.TextRendering.drawTextToFixedPosition(
+            "4", 
+            32, 16, 
+            .TopLeft, 
+            Color.MiddleGrey );
 
         Renderer.endDrawing(); 
     }
