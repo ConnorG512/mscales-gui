@@ -6,7 +6,7 @@ pub fn main() !void {
     var app_manager: AppManager = undefined;
     try app_manager.initApp();
     defer app_manager.cleanupApp();
-
+    
     while (!Raylib.WindowShouldClose()) {
         app_manager.updateApp();
     }

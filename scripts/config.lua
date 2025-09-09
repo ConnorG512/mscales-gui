@@ -10,5 +10,7 @@ BackgroundB = 50
 
 -- Audio
 SampleRate = 48000
-SampleSize = 24
+SampleSize = 16
 Channels = 1
+AudioStreamBufferSize = 4096
+BaseAmplitude = 10000

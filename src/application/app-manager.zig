@@ -6,7 +6,10 @@ const Color = @import("../theming/colors.zig");
 const TextRender = @import("../system/text-rendering.zig");
 const Audio = @import("../system/audio.zig").Audio;
 const MusicScale = @import("music-scales.zig");
-const UserInput = @import("../system/user-input.zig").UserInput;
+const UserInput = @import("../system/user-input.zig");
+const Oscillator = @import("../application/oscillator.zig");
+
+const std = @import("std");
 
 pub const AppManager = struct {
     lua_instance: LuaState = undefined,
@@ -19,12 +22,11 @@ pub const AppManager = struct {
         try self.window.initWindowFromLuaFile(&self.lua_instance);
         try self.renderer.initBackgroundFromLuaFile(&self.lua_instance);
         try self.audio_manager.initAudioFromLuaFile(&self.lua_instance);
+        try Oscillator.initFromLuaFile(&self.lua_instance);
     }
     
     pub fn updateApp(self: *AppManager) void {
 
-        UserInput.testPrint();
-        
         Renderer.beginDraw();
         self.renderer.clearBackground();
         TextRender.TextRendering.drawTextToFixedPosition(

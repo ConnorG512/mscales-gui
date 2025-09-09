@@ -1,10 +1,10 @@
 const Raylib = @import("../cimport/raylib.zig").Raylib;
 const std = @import("std");
 
-pub const UserInput = struct {
-    pub fn testPrint() void {
-        if (Raylib.IsKeyDown(Raylib.KEY_SPACE)) {
-            std.log.debug("Space Held!", .{});
-        }
-    }
-};
+pub fn testForPressedKey(key: c_uint) bool {
+   if (Raylib.IsKeyDown(@intCast(key))) {
+       std.log.debug("Pressed!", .{});
+       return true;
+   } 
+   return false;
+}
