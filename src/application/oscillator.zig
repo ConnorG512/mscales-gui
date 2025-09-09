@@ -7,7 +7,7 @@ const std = @import("std");
 var phase: f32 = 0.0;
 
 const frequency: f32 = 440.0;
-var audioFrequency: f32 = 220.0;
+var audioFrequency: f32 = 440.0;
 const old_frequency: f32 = 1.0;
 var sineIdx: f32 = 0.0;
 var sample_rate: f32 = 44100;
