@@ -13,6 +13,12 @@ var sineIdx: f32 = 0.0;
 var sample_rate: f32 = 44100;
 var base_amplitude: f32 = 32000.0;
 
+pub const SoundStatus = enum {
+    NoSound,
+    SineWave,
+};
+pub var current_sound_status: SoundStatus = .NoSound;
+
 pub fn initFromLuaFile(lua_instance: *LuaState) !void {
     sample_rate = @floatCast(try lua_instance.readGlobalFromFile(
         "scripts/config.lua", 
@@ -25,7 +31,14 @@ pub fn initFromLuaFile(lua_instance: *LuaState) !void {
 pub fn writeDataToSoundBuffer(raw_buffer: ?*anyopaque, frames: c_uint) callconv(.c) void {
     const sound_buffer: [*]i16 = @ptrCast(@alignCast(raw_buffer));
 
-    playSine(sound_buffer[0..frames]);
+    switch (current_sound_status) {
+        .NoSound => {
+            noSound(sound_buffer[0..frames]);
+        },
+        .SineWave => {
+            playSine(sound_buffer[0..frames]);
+        },
+    }
 }
 
 fn playSine (sound_buffer: []i16) void {
@@ -37,5 +50,10 @@ fn playSine (sound_buffer: []i16) void {
         sineIdx += incr;
         if (sineIdx > 1.0) sineIdx -= 1.0;
     }
+}
 
+fn noSound(sound_buffer: []i16) void {
+    for (sound_buffer[0..]) |*sample| {
+        sample.* = @intFromFloat( 0x00 );
+    }
 }
