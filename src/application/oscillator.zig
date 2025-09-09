@@ -25,12 +25,17 @@ pub fn initFromLuaFile(lua_instance: *LuaState) !void {
 pub fn writeDataToSoundBuffer(raw_buffer: ?*anyopaque, frames: c_uint) callconv(.c) void {
     const sound_buffer: [*]i16 = @ptrCast(@alignCast(raw_buffer));
 
+    playSine(sound_buffer[0..frames]);
+}
+
+fn playSine (sound_buffer: []i16) void {
     audioFrequency = frequency + (audioFrequency - frequency ) * 0.95;
     const incr = audioFrequency / sample_rate;
 
-    for (sound_buffer[0..frames]) |*sample| {
+    for (sound_buffer[0..]) |*sample| {
         sample.* = @intFromFloat(base_amplitude * std.math.sin( 2 * std.math.pi * sineIdx ));
         sineIdx += incr;
         if (sineIdx > 1.0) sineIdx -= 1.0;
     }
+
 }
