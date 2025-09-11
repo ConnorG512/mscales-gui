@@ -33,7 +33,15 @@ pub const Oscillator = struct {
     }
 
     pub fn setupPlayAudio(self: *Oscillator, chosen_sound_status: SoundStatus, chosen_frequency: f32) void {
-        self.audioFrequency = chosen_frequency;
+        self.audioFrequency = switch (self.current_octave) {
+            1 => chosen_frequency / 32,
+            2 => chosen_frequency / 16 ,
+            3 => chosen_frequency / 8 ,
+            4 => chosen_frequency / 4,
+            5 => chosen_frequency / 2,
+            6 => chosen_frequency,
+            else => unreachable,
+        };
         self.current_sound_status = chosen_sound_status;
     }
 
