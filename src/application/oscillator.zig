@@ -29,6 +29,7 @@ pub const Oscillator = struct {
             "scripts/config.lua", 
             "BaseAmplitude"));
         oscliator_instance_ptr = self;
+        std.log.debug("Oscillator ptr: [{*}]", .{oscliator_instance_ptr});
     }
 
     pub fn setupPlayAudio(self: *Oscillator, chosen_sound_status: SoundStatus, chosen_frequency: f32) void {
