@@ -17,6 +17,7 @@ pub const Oscillator = struct {
     sineIdx: f32 = 0.0,
     sample_rate: f32 = 44100,
     base_amplitude: f32 = 32000.0,
+    current_octave: c_int = 4,
     current_sound_status: SoundStatus = .NoSound,
 
     pub fn initFromLuaFile(self: *Oscillator, lua_instance: *LuaState) !void {
@@ -26,6 +27,7 @@ pub const Oscillator = struct {
         self.base_amplitude = @floatCast(try lua_instance.readGlobalFromFile(
             "scripts/config.lua", 
             "BaseAmplitude"));
+        self.current_octave = 4;
         oscliator_instance_ptr = self;
         std.log.debug("Oscillator ptr: [{*}]", .{oscliator_instance_ptr});
     }
@@ -35,6 +37,27 @@ pub const Oscillator = struct {
         self.current_sound_status = chosen_sound_status;
     }
 
+    pub fn increaseCurrentOctave(self: *Oscillator) c_int {
+        const max_octave = comptime 6;
+        if (self.current_octave >= max_octave) {
+            self.current_octave = 6;
+            return self.current_octave;
+        }
+        self.current_octave += 1;
+        return self.current_octave;
+    }
+    
+    pub fn decreaseCurrentOctave(self: *Oscillator) c_int {
+        const min_octave = comptime 1;
+        if (self.current_octave <= min_octave) {
+            self.current_octave = 1;
+            return self.current_octave;
+        }
+        self.current_octave -= 1;
+        return self.current_octave;
+    }
+
+    // Raylib callback function, signature cannot be changed.
     pub fn writeDataToSoundBuffer(raw_buffer: ?*anyopaque, frames: c_uint) callconv(.c) void {
         std.debug.assert(oscliator_instance_ptr != null);
         const sound_buffer: [*]i16 = @ptrCast(@alignCast(raw_buffer));

@@ -15,15 +15,15 @@ pub fn triggerSoundOnInput(oscillator: *Oscillator) [:0]const u8 {
     return "";
 }
 
-pub fn changeOctave() c_int {
+pub fn changeOctave(oscillator: *Oscillator) c_int {
     if (Raylib.IsKeyPressed(Raylib.KEY_EQUAL)) {
 
-        return 6;
+        return oscillator.increaseCurrentOctave();
     }
     if (Raylib.IsKeyPressed(Raylib.KEY_MINUS)) {
 
-        return 6;
+        return oscillator.decreaseCurrentOctave();
     }
-    return 1;
+    return oscillator.current_octave;
 }
 

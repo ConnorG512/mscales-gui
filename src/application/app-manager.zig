@@ -29,7 +29,7 @@ pub const AppManager = struct {
     pub fn updateApp(self: *AppManager) void {
 
         const current_note_string: [:0]const u8 = UserInput.triggerSoundOnInput(&self.oscillator);
-        const current_octave: c_int = UserInput.changeOctave();
+        const current_octave: c_int = UserInput.changeOctave(&self.oscillator);
 
         Renderer.beginDraw();
         defer Renderer.endDrawing(); 
