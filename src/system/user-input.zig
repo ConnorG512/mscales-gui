@@ -15,5 +15,11 @@ pub fn triggerSoundOnInput() void {
 }
 
 pub fn changeOctave() void {
+    if (Raylib.IsKeyPressed(Raylib.KEY_EQUAL)) {
+
+    }
+    if (Raylib.IsKeyPressed(Raylib.KEY_MINUS)) {
+
+    }
 }
 
