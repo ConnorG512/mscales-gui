@@ -2,7 +2,7 @@ const std = @import("std");
 
 const Raylib = @import("../cimport/raylib.zig").Raylib;
 const LuaState = @import("../system/lua-instance.zig").LuaInstance;
-const Oscillator = @import("../application/oscillator.zig");
+const Oscillator = @import("../application/oscillator.zig").Oscillator;
 
 pub const Audio = struct {
     sample_rate: c_uint = undefined,

@@ -7,7 +7,7 @@ const TextRender = @import("../system/text-rendering.zig");
 const Audio = @import("../system/audio.zig").Audio;
 const MusicScale = @import("music-scales.zig");
 const UserInput = @import("../system/user-input.zig");
-const Oscillator = @import("../application/oscillator.zig");
+const Oscillator = @import("../application/oscillator.zig").Oscillator;
 
 const std = @import("std");
 
@@ -16,18 +16,20 @@ pub const AppManager = struct {
     audio_manager: Audio = undefined,
     window: Window = undefined,
     renderer: Renderer = undefined,
+    oscillator: Oscillator = undefined,
 
     pub fn initApp(self: *AppManager) !void {
         try self.lua_instance.initLua();
         try self.window.initWindowFromLuaFile(&self.lua_instance);
         try self.renderer.initBackgroundFromLuaFile(&self.lua_instance);
         try self.audio_manager.initAudioFromLuaFile(&self.lua_instance);
-        try Oscillator.initFromLuaFile(&self.lua_instance);
+        try self.oscillator.initFromLuaFile(&self.lua_instance);
     }
     
     pub fn updateApp(self: *AppManager) void {
 
-        const current_note_string: [:0]const u8 = UserInput.triggerSoundOnInput();
+        const current_note_string: [:0]const u8 = UserInput.triggerSoundOnInput(&self.oscillator);
+        const current_octave: c_int = UserInput.changeOctave();
 
         Renderer.beginDraw();
         defer Renderer.endDrawing(); 
@@ -48,7 +50,7 @@ pub const AppManager = struct {
             .Centre, 
             Color.MiddleGrey );
 
-        TextRender.TextRendering.drawOctaveText(6, Color.MiddleGrey);
+        TextRender.TextRendering.drawOctaveText(current_octave, Color.MiddleGrey);
 
     }
     
