@@ -6,6 +6,11 @@ const std = @import("std");
 
 var oscliator_instance_ptr: ?*Oscillator = null;
 
+pub const SoundStatus = enum {
+    NoSound,
+    SineWave,
+};
+
 pub const Oscillator = struct {
     phase: f32 = 0.0,
     frequency: f32 = 440.0,
@@ -14,12 +19,7 @@ pub const Oscillator = struct {
     sineIdx: f32 = 0.0,
     sample_rate: f32 = 44100,
     base_amplitude: f32 = 32000.0,
-
-    pub const SoundStatus = enum {
-        NoSound,
-        SineWave,
-    };
-    var current_sound_status: SoundStatus = .NoSound;
+    current_sound_status: SoundStatus = .NoSound,
 
     pub fn initFromLuaFile(self: *Oscillator, lua_instance: *LuaState) !void {
         self.sample_rate = @floatCast(try lua_instance.readGlobalFromFile(
@@ -34,14 +34,14 @@ pub const Oscillator = struct {
 
     pub fn setupPlayAudio(self: *Oscillator, chosen_sound_status: SoundStatus, chosen_frequency: f32) void {
         self.audioFrequency = chosen_frequency;
-        current_sound_status = chosen_sound_status;
+        self.current_sound_status = chosen_sound_status;
     }
 
     pub fn writeDataToSoundBuffer(raw_buffer: ?*anyopaque, frames: c_uint) callconv(.c) void {
         std.debug.assert(oscliator_instance_ptr != null);
         const sound_buffer: [*]i16 = @ptrCast(@alignCast(raw_buffer));
 
-        switch (current_sound_status) {
+        switch (oscliator_instance_ptr.?.current_sound_status) {
             .NoSound => {
                noSound(sound_buffer[0..frames]);
             },

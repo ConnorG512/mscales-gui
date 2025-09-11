@@ -41,17 +41,16 @@ pub const AppManager = struct {
             32,
             16, 
             .TopCentre, 
-            Color.MiddleGrey );
+            Color.MiddleGrey);
         
         TextRender.TextRendering.drawTextToFixedPosition(
             current_note_string, 
             64, 
             0, 
             .Centre, 
-            Color.MiddleGrey );
+            Color.MiddleGrey);
 
         TextRender.TextRendering.drawOctaveText(current_octave, Color.MiddleGrey);
-
     }
     
     pub fn cleanupApp(self: *AppManager) void {
