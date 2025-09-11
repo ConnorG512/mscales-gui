@@ -13,9 +13,7 @@ pub const SoundStatus = enum {
 
 pub const Oscillator = struct {
     phase: f32 = 0.0,
-    frequency: f32 = 440.0,
     audioFrequency: f32 = 440.0,
-    old_frequency: f32 = 1.0,
     sineIdx: f32 = 0.0,
     sample_rate: f32 = 44100,
     base_amplitude: f32 = 32000.0,
