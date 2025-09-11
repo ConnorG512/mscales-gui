@@ -3,6 +3,7 @@ const Raylib = @import("../cimport/raylib.zig").Raylib;
 const NoteTemplate = struct {
     frequency: f32,
     input_button: c_int,
+    note_name: [:0]const u8,
 };
 
 const NoteFrequencies = struct {
@@ -22,18 +23,18 @@ const NoteFrequencies = struct {
 };
 
 pub const OctaveFour = [_]NoteTemplate {
-    .{ .frequency = NoteFrequencies.c4, .input_button = Raylib.KEY_Z },
-    .{ .frequency = NoteFrequencies.cs4, .input_button = Raylib.KEY_S },
-    .{ .frequency = NoteFrequencies.d4, .input_button = Raylib.KEY_X },
-    .{ .frequency = NoteFrequencies.ds4, .input_button = Raylib.KEY_D },
-    .{ .frequency = NoteFrequencies.e4, .input_button = Raylib.KEY_C },
-    .{ .frequency = NoteFrequencies.f4, .input_button = Raylib.KEY_V },
-    .{ .frequency = NoteFrequencies.fs4, .input_button = Raylib.KEY_G },
-    .{ .frequency = NoteFrequencies.g4, .input_button = Raylib.KEY_B },
-    .{ .frequency = NoteFrequencies.gs4, .input_button = Raylib.KEY_H },
-    .{ .frequency = NoteFrequencies.a4, .input_button = Raylib.KEY_N },
-    .{ .frequency = NoteFrequencies.as4, .input_button = Raylib.KEY_J },
-    .{ .frequency = NoteFrequencies.b4, .input_button = Raylib.KEY_M },
-    .{ .frequency = NoteFrequencies.c5, .input_button = Raylib.KEY_COMMA },
+    .{ .frequency = NoteFrequencies.c4, .input_button = Raylib.KEY_Z, .note_name = "C" },
+    .{ .frequency = NoteFrequencies.cs4, .input_button = Raylib.KEY_S, .note_name = "C#/Db" },
+    .{ .frequency = NoteFrequencies.d4, .input_button = Raylib.KEY_X, .note_name = "D" },
+    .{ .frequency = NoteFrequencies.ds4, .input_button = Raylib.KEY_D, .note_name = "D#/Eb" },
+    .{ .frequency = NoteFrequencies.e4, .input_button = Raylib.KEY_C, .note_name = "E" },
+    .{ .frequency = NoteFrequencies.f4, .input_button = Raylib.KEY_V, .note_name = "F" },
+    .{ .frequency = NoteFrequencies.fs4, .input_button = Raylib.KEY_G, .note_name = "F#/Gb" },
+    .{ .frequency = NoteFrequencies.g4, .input_button = Raylib.KEY_B, .note_name = "G" },
+    .{ .frequency = NoteFrequencies.gs4, .input_button = Raylib.KEY_H, .note_name = "G#/Fb" },
+    .{ .frequency = NoteFrequencies.a4, .input_button = Raylib.KEY_N, .note_name = "A" },
+    .{ .frequency = NoteFrequencies.as4, .input_button = Raylib.KEY_J, .note_name = "A#/Bb" },
+    .{ .frequency = NoteFrequencies.b4, .input_button = Raylib.KEY_M, .note_name = "B" },
+    .{ .frequency = NoteFrequencies.c5, .input_button = Raylib.KEY_COMMA, .note_name = "C" },
 };
 

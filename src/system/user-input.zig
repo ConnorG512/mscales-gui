@@ -4,14 +4,15 @@ const Oscilator = @import("../application/oscillator.zig");
 
 const NoteFrequencies = @import("../application/music-note-frequencies.zig");
 
-pub fn triggerSoundOnInput() void {
+pub fn triggerSoundOnInput() [:0]const u8 {
     for (NoteFrequencies.OctaveFour) |note| {
         if (Raylib.IsKeyDown(note.input_button)) {
             Oscilator.setupPlayAudio(.SineWave, note.frequency);
-            return;
+            return note.note_name;
         }
-        Oscilator.setupPlayAudio(.NoSound, 440);
     }
+    Oscilator.setupPlayAudio(.NoSound, 440);
+    return "";
 }
 
 pub fn changeOctave() void {

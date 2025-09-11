@@ -27,18 +27,29 @@ pub const AppManager = struct {
     
     pub fn updateApp(self: *AppManager) void {
 
-        UserInput.triggerSoundOnInput();
+        const current_note_string: [:0]const u8 = UserInput.triggerSoundOnInput();
 
         Renderer.beginDraw();
+        defer Renderer.endDrawing(); 
+
         self.renderer.clearBackground();
+
         TextRender.TextRendering.drawTextToFixedPosition(
             MusicScale.CMajor.title, 
-            32, 16, 
+            32,
+            16, 
             .TopCentre, 
             Color.MiddleGrey );
+        
+        TextRender.TextRendering.drawTextToFixedPosition(
+            current_note_string, 
+            64, 
+            0, 
+            .Centre, 
+            Color.MiddleGrey );
+
         TextRender.TextRendering.drawOctaveText(6, Color.MiddleGrey);
 
-        Renderer.endDrawing(); 
     }
     
     pub fn cleanupApp(self: *AppManager) void {
