@@ -36,11 +36,7 @@ pub const AppManager = struct {
             32, 16, 
             .TopCentre, 
             Color.MiddleGrey );
-        TextRender.TextRendering.drawTextToFixedPosition(
-            "4", 
-            32, 16, 
-            .TopLeft, 
-            Color.MiddleGrey );
+        TextRender.TextRendering.drawOctaveText(6, Color.MiddleGrey);
 
         Renderer.endDrawing(); 
     }
