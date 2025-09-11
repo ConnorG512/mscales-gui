@@ -10,7 +10,9 @@ pub const ScreenPositions = enum {
     TopRight,
     BottomLeft,
     BottomRight,
+    Centre,
 };
+
 
 pub const TextRendering = struct {
     pub fn drawTextToFixedPosition(
@@ -47,7 +49,27 @@ pub const TextRendering = struct {
                 screen_dimensions.x = Raylib.GetScreenWidth() - (Raylib.MeasureText(text, size) + screen_offset);
                 screen_dimensions.y = screen_offset;
             },
+            .Centre => {
+                screen_dimensions.x = @divFloor(Raylib.GetScreenWidth(), 2) - @divFloor(Raylib.MeasureText(text, size), 2); 
+                screen_dimensions.y = @divFloor(Raylib.GetScreenHeight(), 2) - @divFloor(Raylib.MeasureText(text, size), 2); 
+            },
         }
         Raylib.DrawText(text.ptr, screen_dimensions.x, screen_dimensions.y, size, color);
+    }
+
+    pub fn drawOctaveText(current_octave: c_int, text_color: Raylib.Color) void {
+        const octave_string = switch (current_octave) {
+            1 => "1",
+            2 => "2",
+            3 => "3",
+            4 => "4",
+            5 => "5",
+            6 => "6",
+            else => {
+                std.log.err("(drawOctaveText) Reached invalid octave!", .{});
+                return;
+            }
+        };
+        drawTextToFixedPosition(octave_string, 32, 32, .TopLeft, text_color);
     }
 };
